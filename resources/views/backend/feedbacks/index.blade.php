@@ -50,7 +50,7 @@
                                 </th>
                                 {{-- <th scope="col">Invoice</th> --}}
                                 <th scope="col">Name</th>
-                                <th scope="col">Categoryy</th>
+                                <th scope="col">Category</th>
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>
@@ -70,7 +70,7 @@
                                         <h6 class="text-md mb-0 fw-medium flex-grow-1"> {{ $feedback->title }} </h6>
                                     </div>
                                 </td>
-                                <td> {{ $feedback->feedback_category_category->name ?? '' }} </td>
+                                <td> {{ $feedback->feedback_category->name ?? '' }} </td>
                                 <td>
                                     <a  href="{{ route('feedback.show',$feedback->id) }}" class="w-32-px h-32-px bg-primary-light text-primary-600 rounded-circle d-inline-flex align-items-center justify-content-center">
                                         <iconify-icon icon="iconamoon:eye-light"></iconify-icon>

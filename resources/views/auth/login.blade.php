@@ -46,7 +46,9 @@
                                 </span>
                             @enderror
                         </div>
-                        <span class="toggle-password ri-eye-line cursor-pointer position-absolute end-0 top-50 translate-middle-y me-16 text-secondary-light" data-toggle="#your-password"></span>
+                        <span class="toggle-password cursor-pointer position-absolute end-0 top-50 translate-middle-y me-16 text-secondary-light" data-toggle="#your-password">
+                            <iconify-icon icon="lucide:eye" class="icon text-lg"></iconify-icon>
+                        </span>
                     </div>
                     <div class="">
                         <div class="d-flex justify-content-between gap-2">
@@ -84,25 +86,28 @@
 
 <x-script />
 
-@php
-        $script = '<script>
-            // ================== Password Show Hide Js Start ==========
-            function initializePasswordToggle(toggleSelector) {
-                $(toggleSelector).on("click", function() {
-                    $(this).toggleClass("ri-eye-off-line");
-                    var input = $($(this).attr("data-toggle"));
-                    if (input.attr("type") === "password") {
-                        input.attr("type", "text");
-                    } else {
-                        input.attr("type", "password");
-                    }
-                });
+<script>
+    $(document).ready(function() {
+                $(".toggle-password").on("click", function() {
+            console.log("Toggle password clicked");
+            var iconElement = $(this).find("iconify-icon");
+            var input = $($(this).attr("data-toggle"));
+            
+            console.log("Input type before:", input.attr("type"));
+            console.log("Icon element found:", iconElement.length);
+            
+            if (input.attr("type") === "password") {
+                input.attr("type", "text");
+                iconElement.attr("icon", "lucide:eye-off");
+                console.log("Password shown, icon changed to eye-off");
+            } else {
+                input.attr("type", "password");
+                iconElement.attr("icon", "lucide:eye");
+                console.log("Password hidden, icon changed to eye");
             }
-            // Call the function
-            initializePasswordToggle(".toggle-password");
-            // ========================= Password Show Hide Js End ===========================
-        </script>';
-@endphp
+        });
+    });
+</script>
 
 </body>
 

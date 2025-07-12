@@ -1,7 +1,7 @@
 @extends('backend.layout.layout')
 @php
     $title='Feedback Categories';
-    $subTitle = 'Basic Table';
+    $subTitle = 'Feedback Categories';
     $script = '<script>
                     let table = new DataTable("#dataTable");
                      $(".remove-button").on("click", function() {

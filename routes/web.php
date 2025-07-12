@@ -5,7 +5,7 @@ use App\Http\Controllers\{DashboardController, FeedbackController};
 
 Route::get('/', function () {
     return view('auth.login');
-});
+})->middleware('guest');
 
 Route::group(['prefix'=>'dashboard','middleware'=>'auth'],function(){
     Route::controller(DashboardController::class)->group(function () {

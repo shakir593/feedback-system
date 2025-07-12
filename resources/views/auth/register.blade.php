@@ -79,14 +79,19 @@
                     <div class="">
                         <div class="d-flex justify-content-between gap-2">
                             <div class="form-check style-check d-flex align-items-start">
-                                <input class="form-check-input border border-neutral-300 mt-4" type="checkbox" value="" id="condition">
+                                <input class="form-check-input border border-neutral-300 mt-4 @error('terms_and_conditions') is-invalid @enderror" type="checkbox" name = "terms_and_conditions" value="" id="condition">
                                 <label class="form-check-label text-sm" for="condition">
                                     By creating an account means you agree to the
                                     <a  href="javascript:void(0)" class="text-primary-600 fw-semibold">Terms & Conditions</a> and our
                                     <a  href="javascript:void(0)" class="text-primary-600 fw-semibold">Privacy Policy</a>
                                 </label>
+                                @error('terms_and_conditions')
+                                    <div class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </div>
+                                @enderror
                             </div>
-
+                          
                         </div>
                     </div>
 
@@ -116,26 +121,28 @@
 
 <x-script />
 
-@php
-        $script = '<script>
-            // ================== Password Show Hide Js Start ==========
-            function initializePasswordToggle(toggleSelector) {
-                $(toggleSelector).on("click", function() {
-                    $(this).toggleClass("ri-eye-off-line");
-                    var input = $($(this).attr("data-toggle"));
-                    if (input.attr("type") === "password") {
-                        input.attr("type", "text");
-                    } else {
-                        input.attr("type", "password");
-                    }
-                });
+<script>
+    $(document).ready(function() {
+                $(".toggle-password").on("click", function() {
+            console.log("Toggle password clicked");
+            var iconElement = $(this).find("iconify-icon");
+            var input = $($(this).attr("data-toggle"));
+            
+            console.log("Input type before:", input.attr("type"));
+            console.log("Icon element found:", iconElement.length);
+            
+            if (input.attr("type") === "password") {
+                input.attr("type", "text");
+                iconElement.attr("icon", "lucide:eye-off");
+                console.log("Password shown, icon changed to eye-off");
+            } else {
+                input.attr("type", "password");
+                iconElement.attr("icon", "lucide:eye");
+                console.log("Password hidden, icon changed to eye");
             }
-            // Call the function
-            initializePasswordToggle(".toggle-password");
-            // ========================= Password Show Hide Js End ===========================
-        </script>';
-@endphp
-
+        });
+    });
+</script>
 </body>
 
 </html>
