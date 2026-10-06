@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Providers;
+use App\Repositories\Contracts\FeedbackRepositoryInterface;
+use App\Repositories\FeedbackRepository;
 use Illuminate\Support\ServiceProvider;
 use App\Models\{Product,User};
 use Illuminate\Support\Facades\Gate;
@@ -12,7 +14,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->bind(FeedbackRepositoryInterface::class, FeedbackRepository::class);
     }
 
     /**

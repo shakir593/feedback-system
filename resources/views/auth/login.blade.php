@@ -1,114 +1,289 @@
 <!-- meta tags and other links -->
-<!DOCTYPE html>
-<html lang="en" data-theme="light">
+@extends('auth.layouts.auth-master')
+@section('title', 'Login')
+@section('css')
+<style>
+    .auth-login-page {
+        margin: 0;
+        background: #fff;
+    }
 
-<x-head/>
+    .auth-login {
+        min-height: 100vh;
+        display: flex;
+        background: #fff;
+    }
 
-<body>
+    .auth-login__visual {
+        position: relative;
+        flex: 1 1 50%;
+        min-height: 100vh;
+        background: #0b4fc1;
+        overflow: hidden;
+    }
 
-    <section class="auth bg-base d-flex flex-wrap">
-        <div class="auth-left d-lg-block d-none">
-            <div class="d-flex align-items-center flex-column h-100 justify-content-center">
-                <img src="{{ asset('backend/assets/images/auth/auth-img.png') }}" alt="">
-            </div>
+    .auth-login__visual img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: left center;
+    }
+
+    .auth-login__panel {
+        flex: 1 1 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 48px 32px;
+        background: #fff;
+    }
+
+    .auth-login__card {
+        width: 100%;
+        max-width: 420px;
+    }
+
+    .auth-login__logo {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 28px;
+    }
+
+    .auth-login__logo img {
+        width: 210px;
+        height: auto;
+        display: block;
+    }
+
+    .auth-login__title {
+        margin: 0 0 8px;
+        color: #0b1b3a;
+        font-size: 26px !important;
+        font-weight: 700;
+        line-height: 1.3;
+        letter-spacing: -0.02em;
+    }
+
+    .auth-login__subtitle {
+        margin: 0 0 28px;
+        color: #8b95a7;
+        font-size: 15px;
+        line-height: 1.5;
+    }
+
+    .auth-login__field {
+        margin-bottom: 16px;
+    }
+
+    .auth-login .form-control {
+        height: 52px;
+        border: 1px solid #e6ebf2;
+        border-radius: 12px;
+        background: #f7f9fc;
+        color: #0b1b3a;
+        font-size: 15px;
+        box-shadow: none;
+    }
+
+    .auth-login .form-control::placeholder {
+        color: #9aa3b2;
+    }
+
+    .auth-login .form-control:focus {
+        border-color: #2f80ed;
+        background: #fff;
+        box-shadow: 0 0 0 3px rgba(47, 128, 237, 0.12);
+    }
+
+    .auth-login .icon-field .icon {
+        color: #9aa3b2;
+        font-size: 18px;
+    }
+
+    .auth-login .toggle-password {
+        position: absolute;
+        top: 26px;
+        right: 16px;
+        transform: translateY(-50%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        border: 0;
+        background: transparent;
+        color: #9aa3b2;
+        font-size: 18px;
+        line-height: 1;
+        cursor: pointer;
+    }
+
+    .auth-login__remember {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin: 4px 0 0;
+        min-height: 0;
+        padding-left: 0;
+    }
+
+    .auth-login__remember .form-check-input {
+        float: none;
+        margin: 0;
+        width: 16px;
+        height: 16px;
+        border-color: #d5dbe6;
+        cursor: pointer;
+    }
+
+    .auth-login__remember .form-check-label {
+        color: #6b7280;
+        font-size: 14px;
+        cursor: pointer;
+    }
+
+    .auth-login__submit {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 52px;
+        margin-top: 24px;
+        border: 0;
+        border-radius: 12px;
+        background: #2f80ed;
+        color: #fff;
+        font-size: 15px;
+        font-weight: 600;
+        line-height: 1;
+        cursor: pointer;
+    }
+
+    .auth-login__submit:hover {
+        background: #1f6fe0;
+    }
+
+    .auth-login__footer {
+        margin: 28px 0 0;
+        text-align: center;
+        color: #8b95a7;
+        font-size: 14px;
+    }
+
+    .auth-login__footer a {
+        color: #2f80ed;
+        font-weight: 600;
+        text-decoration: none;
+    }
+
+    .auth-login__footer a:hover {
+        text-decoration: underline;
+    }
+
+    .auth-login .invalid-feedback {
+        display: block;
+    }
+
+    @media (max-width: 991px) {
+        .auth-login {
+            flex-direction: column;
+        }
+
+        .auth-login__visual {
+            flex: none;
+            width: 100%;
+            min-height: 240px;
+            height: 34vh;
+        }
+
+        .auth-login__panel {
+            flex: none;
+            width: 100%;
+            padding: 32px 20px 48px;
+        }
+    }
+</style>
+@endsection
+@section('content')
+    <section class="auth-login">
+        <div class="auth-login__visual" aria-hidden="true">
+            <img src="{{ asset('backend/assets/images/auth/feedback-auth-image.png') }}" alt="">
         </div>
-        <div class="auth-right py-32 px-24 d-flex flex-column justify-content-center">
-            <div class="max-w-464-px mx-auto w-100">
-                <div>
-                    <a href="{{ url('/') }}" class="mb-40 max-w-290-px">
-                        <img src="{{ asset('backend/assets/images/logo.png') }}" alt="">
-                    </a>
-                    <h4 class="mb-12">Sign In to your Account</h4>
-                    <p class="mb-32 text-secondary-light text-lg">Welcome back! please enter your detail</p>
-                </div>
+
+        <div class="auth-login__panel">
+            <div class="auth-login__card">
+                <a href="{{ url('/') }}" class="auth-login__logo">
+                    <img src="{{ asset('backend/assets/images/auth/feedback-logo.png') }}" alt="Feedback System">
+                </a>
+
+                <h1 class="auth-login__title">Sign In to your Account</h1>
+                <p class="auth-login__subtitle">Welcome back! please enter your detail</p>
+
                 <form method="POST" action="{{ route('login') }}">
-                     @csrf
-                    <div class="icon-field mb-16">
+                    @csrf
+
+                    <div class="icon-field auth-login__field">
                         <span class="icon top-50 translate-middle-y">
                             <iconify-icon icon="mage:email"></iconify-icon>
                         </span>
-                        <input id="email" type="email" name="email" class="form-control h-56-px bg-neutral-50 radius-12 @error('email') is-invalid @enderror" placeholder="Email">
+                        <input id="email" type="email" name="email" value="{{ old('email') }}" class="form-control @error('email') is-invalid @enderror" placeholder="Email" required autofocus>
                         @error('email')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
                         @enderror
                     </div>
-                    <div class="position-relative mb-20">
+
+                    <div class="position-relative auth-login__field">
                         <div class="icon-field">
                             <span class="icon top-50 translate-middle-y">
                                 <iconify-icon icon="solar:lock-password-outline"></iconify-icon>
                             </span>
-                            <input type="password" name="password" class="form-control h-56-px bg-neutral-50 radius-12 @error('password') is-invalid @enderror" id="your-password" placeholder="Password">
-                             @error('password')
+                            <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" id="your-password" placeholder="Password" required>
+                            @error('password')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
                         </div>
-                        <span class="toggle-password cursor-pointer position-absolute end-0 top-50 translate-middle-y me-16 text-secondary-light" data-toggle="#your-password">
-                            <iconify-icon icon="lucide:eye" class="icon text-lg"></iconify-icon>
-                        </span>
-                    </div>
-                    <div class="">
-                        <div class="d-flex justify-content-between gap-2">
-                            <div class="form-check style-check d-flex align-items-center">
-                                <input class="form-check-input border border-neutral-300" type="checkbox" name="remember" value=""  id="remember" {{ old('remember') ? 'checked' : '' }}>
-                                <label class="form-check-label" for="remeber">Remember me </label>
-                            </div>
-                            {{-- <a  href="javascript:void(0)" class="text-primary-600 fw-medium">Forgot Password?</a> --}}
-                        </div>
-                    </div>
-
-                    <button type="submit" class="btn btn-primary text-sm btn-sm px-12 py-16 w-100 radius-12 mt-32"> Sign In</button>
-
-                    {{-- <div class="mt-32 center-border-horizontal text-center">
-                        <span class="bg-base z-1 px-4">Or sign in with</span>
-                    </div> --}}
-                    {{-- <div class="mt-32 d-flex align-items-center gap-3">
-                        <button type="button" class="fw-semibold text-primary-light py-16 px-24 w-50 border radius-12 text-md d-flex align-items-center justify-content-center gap-12 line-height-1 bg-hover-primary-50">
-                            <iconify-icon icon="ic:baseline-facebook" class="text-primary-600 text-xl line-height-1"></iconify-icon>
-                            Google
+                        <button type="button" class="toggle-password" data-toggle="#your-password" aria-label="Show password">
+                            <iconify-icon icon="lucide:eye"></iconify-icon>
                         </button>
-                        <button type="button" class="fw-semibold text-primary-light py-16 px-24 w-50 border radius-12 text-md d-flex align-items-center justify-content-center gap-12 line-height-1 bg-hover-primary-50">
-                            <iconify-icon icon="logos:google-icon" class="text-primary-600 text-xl line-height-1"></iconify-icon>
-                            Google
-                        </button>
-                    </div> --}}
-                    <div class="mt-32 text-center text-sm">
-                        <p class="mb-0">Don’t have an account?<a  href="{{route('register')}}" class="text-primary-600 fw-semibold">&nbsp;Sign Up</a></p>
                     </div>
 
+                    <div class="form-check auth-login__remember">
+                        <input class="form-check-input" type="checkbox" name="remember" value="1" id="remember" @checked(old('remember'))>
+                        <label class="form-check-label" for="remember">Remember me</label>
+                    </div>
+
+                    <button type="submit" class="auth-login__submit">Sign In</button>
+
+                    <p class="auth-login__footer">
+                        Don't have an account? <a href="{{ route('register') }}">Sign Up</a>
+                    </p>
                 </form>
             </div>
         </div>
     </section>
-
-<x-script />
-
+@endsection
+@section('scripts')
 <script>
     $(document).ready(function() {
-                $(".toggle-password").on("click", function() {
-            console.log("Toggle password clicked");
+        $(".toggle-password").on("click", function() {
             var iconElement = $(this).find("iconify-icon");
             var input = $($(this).attr("data-toggle"));
-            
-            console.log("Input type before:", input.attr("type"));
-            console.log("Icon element found:", iconElement.length);
-            
+
             if (input.attr("type") === "password") {
                 input.attr("type", "text");
                 iconElement.attr("icon", "lucide:eye-off");
-                console.log("Password shown, icon changed to eye-off");
+                $(this).attr("aria-label", "Hide password");
             } else {
                 input.attr("type", "password");
                 iconElement.attr("icon", "lucide:eye");
-                console.log("Password hidden, icon changed to eye");
+                $(this).attr("aria-label", "Show password");
             }
         });
     });
 </script>
-
-</body>
-
-</html>
+@endsection

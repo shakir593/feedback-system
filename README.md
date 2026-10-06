@@ -1,118 +1,121 @@
 # Feedback System
 
-A comprehensive feedback management system built with Laravel that allows users to create, manage, and comment on feedback with user authorization controls.
+A Laravel application for collecting and managing product feedback. Signed-in users can submit feedback, organize it by category, and discuss it in comments with @mentions.
 
-## Features
+## Key features
 
-- **User Authentication**: Secure login and registration system
-- **Feedback Management**: Create, edit, delete, and view feedback
-- **Comment System**: Add comments to feedback with user mentions
-- **Authorization Controls**: Users can only edit/delete their own feedback and comments
-- **User Mentions**: Mention other users in comments
-- **Responsive Design**: Modern dashboard interface
+- **Authentication.** Register and sign in. Registration requires accepting the terms and conditions.
+- **Dashboard.** A signed-in home for feedback management.
+- **Feedback CRUD.** Create, view, edit, and delete feedback with a title, description, and category.
+- **Categories.** Feedback is grouped as bug report, feature request, or improvement.
+- **Comments.** Add a comment to any feedback, including a date and description.
+- **User mentions.** Mention other users in a comment with `@`. Matching users are suggested as you type.
+- **Ownership rules.** Only the author can edit or delete a piece of feedback, and only the author can delete a comment.
+- **Sidebar navigation.** Feedback Management stays active on list, detail, edit, and comment pages.
 
 ## Prerequisites
 
-Before you begin, ensure you have the following installed on your computer:
-
-- **MySQL Server** with PHP 8.2 or greater
-- **Composer** (PHP package manager)
-- **Git** (version control)
+- PHP 8.2 or newer
+- Composer
+- MySQL
+- Git
 
 ## Installation
 
-Follow these step-by-step instructions to set up the Feedback System:
+### 1. Clone the repository
 
-### Step 1: Clone the Repository
 ```bash
 git clone <repository-url>
 cd feedback-system
 ```
 
-### Step 2: Install Dependencies
+### 2. Install PHP dependencies
+
 ```bash
 composer install
 ```
 
-### Step 3: Environment Configuration
-1. Create a `.env` file in the root directory
-2. Copy all environment variables from `.env.example` file to `.env`
-3. Update the database configuration in `.env` file
+### 3. Configure the environment
 
-### Step 4: Database Setup
-1. Create a MySQL database named `feedback_system` (same as in your `.env` file)
-2. Run database migrations:
+```bash
+cp .env.example .env
+```
+
+On Windows PowerShell:
+
+```powershell
+Copy-Item .env.example .env
+```
+
+Open `.env` and set the application URL and MySQL connection:
+
+```env
+APP_URL=http://127.0.0.1:8000
+
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=feedback_system
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+Generate the application key:
+
+```bash
+php artisan key:generate
+```
+
+### 4. Create the database
+
+Create an empty MySQL database named `feedback_system` (the name in `DB_DATABASE`).
+
+### 5. Run migrations
+
 ```bash
 php artisan migrate
 ```
 
-### Step 5: Seed the Database
+This creates the users, sessions, feedback categories, feedback, comments, and comment-mention tables.
+
+### 6. Seed categories and users
+
+Seed everything:
+
 ```bash
 php artisan db:seed
 ```
 
-### Step 6: Start the Application
+Or seed each set on its own:
+
+```bash
+php artisan db:seed --class=UserSeeder
+php artisan db:seed --class=FeedbackCategorySeeder
+```
+
+`FeedbackCategorySeeder` creates:
+
+- bug report
+- feature request
+- improvement
+
+`UserSeeder` creates these accounts:
+
+| Name | Email | Password |
+| --- | --- | --- |
+| Admin | admin@example.com | admin_123 |
+| John Doe | john@example.com | john_123 |
+| Jane Smith | jane@example.com | jane_123 |
+| Selena Gomez | selena.gomez@example.com | selena_123 |
+| Taylor Swifth | taylor.swifth@example.com | selena_123 |
+
+### 7. Start the application
+
 ```bash
 php artisan serve
 ```
 
-The application will be available at `http://localhost:8000`
-
-## Testing User Authentication
-
-You can test the user authentication with the created users from `database/seeders/UserSeeder.php`. The seeder creates sample users with the following credentials:
-
-- **User 1**: Check the UserSeeder.php file for credentials
-- **User 2**: Check the UserSeeder.php file for credentials
-
-## Authorization Testing
-
-To test the authorization features:
-
-1. **Use two different browsers** or incognito windows
-2. **Login with different users** in each browser
-3. **Test the following features**:
-   - **Feedback Management**: Only the feedback creator can edit/delete their feedback
-   - **Comment Management**: Only the comment creator can delete their comments
-   - **User Mentions**: Users can mention other users in comments
-
-## Project Structure
-
-```
-feedback-system/
-├── app/
-│   ├── Http/Controllers/     # Application controllers
-│   ├── Models/              # Eloquent models
-│   └── Http/Requests/       # Form request validation
-├── database/
-│   ├── migrations/          # Database migrations
-│   └── seeders/            # Database seeders
-├── resources/
-│   └── views/              # Blade templates
-└── routes/
-    └── web.php             # Web routes
-```
-
-## Key Features Explained
-
-### Authorization System
-- Users can only edit/delete their own feedback
-- Users can only delete their own comments
-- Proper server-side validation prevents unauthorized access
-
-### Comment System
-- Users can add comments to any feedback
-- Support for mentioning other users in comments
-- Mentioned users are displayed as badges
-
-### User Interface
-- Modern, responsive dashboard design
-- Clean and intuitive user experience
-- Consistent styling throughout the application
-
-## Support
-
-If you encounter any issues during installation or have questions about the system, please refer to the Laravel documentation or create an issue in the repository.
+Open [http://127.0.0.1:8000](http://127.0.0.1:8000) and sign in with one of the seeded accounts.
 
 ## License
 

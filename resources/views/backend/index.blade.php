@@ -26,7 +26,7 @@
                                 <div class="card-body p-24 h-100 d-flex flex-column justify-content-center border border-top-0 border-start-0 border-end-0">
                                     <div class="d-flex flex-wrap align-items-center justify-content-between gap-1 mb-8">
                                         <div>
-                                            <span class="mb-1 fw-medium text-secondary-light text-md">Total Customer</span>
+                                            <span class="mb-1 fw-medium text-secondary-light text-md">Total Feedbacks</span>
                                             <h6 class="fw-semibold text-primary-light mb-1">0</h6>
                                         </div>
                                     </div>
@@ -37,7 +37,7 @@
                                 <div class="card-body p-24 h-100 d-flex flex-column justify-content-center border border-top-0 border-bottom-0">
                                     <div class="d-flex flex-wrap align-items-center justify-content-between gap-1 mb-8">
                                         <div>
-                                            <span class="mb-1 fw-medium text-secondary-light text-md">Total Orders</span>
+                                            <span class="mb-1 fw-medium text-secondary-light text-md">Total Categories</span>
                                             <h6 class="fw-semibold text-primary-light mb-1">0</h6>
                                         </div>
                                     </div>
